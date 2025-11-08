@@ -1,0 +1,272 @@
+/* ===================== */
+/* ESTILOS GENERALES */
+/* ===================== */
+body {
+  font-family: "Poppins", "Segoe UI", Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg, #e3f2fd, #ffffff);
+  color: #333;
+  margin: 0;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Título */
+h2 {
+  color: #007bff;
+  margin-bottom: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ===================== */
+/* CONTENEDOR PRINCIPAL */
+/* ===================== */
+.contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+/* ===================== */
+/* TARJETAS (calendario y cálculo) */
+/* ===================== */
+#calendar,
+.calculo {
+  background: #ffffffcc; /* blanco semitransparente */
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  height: 550px;
+  padding: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Calendario más ancho */
+#calendar {
+  width: 580px; /* un 20% más ancho que el panel de cálculo */
+}
+
+.calculo {
+  width: 480px;
+  text-align: left;
+  overflow-y: auto;
+}
+
+#calendar:hover,
+.calculo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ===================== */
+/* PANEL DE CÁLCULO */
+/* ===================== */
+.calculo h4 {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 8px 0;
+  color: #2a2a2a;
+}
+
+.calculo label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 10px;
+  color: #444;
+}
+
+.calculo input:not([type="checkbox"]) {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  transition: all 0.2s ease;
+}
+
+.calculo input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+}
+
+/* Checkbox */
+.calculo .aderencia,
+.calculo .transp,
+.calculo .uscal,
+.calculo .uscalend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.calculo .aderencia input,
+.calculo .transp input,
+.calculo .uscal input,
+.calculo .uscalend input {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.calculo .total {
+  font-weight: 700;
+  color: #007bff;
+  font-size: 16px;
+  margin-top: 15px;
+}
+
+.calculo .salypen {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+/* ===================== */
+/* MODAL */
+/* ===================== */
+#modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px); /* efecto de desenfoque */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Contenedor del modal */
+.modal-content {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 25px;
+  width: 340px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #007bff;
+}
+
+.modal-content p {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Inputs del modal */
+.modal-content input[type="time"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.modal-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Botones */
+.btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn.guardar {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn.guardar:hover {
+  background-color: #1e8c38;
+}
+
+.btn.cancelar {
+  background-color: #ddd;
+  color: #333;
+}
+
+.btn.cancelar:hover {
+  background-color: #bbb;
+}
+
+/* Lunch */
+#lunchOptions {
+  margin-top: 10px;
+  border-radius: 8px;
+  padding: 10px; 
+}
+
+#lunchOptions label {
+  display: block;
+  margin: 5px 0 3px;
+  font-weight: bold;
+}
+
+/* ===================== */
+/* ANIMACIONES */
+/* ===================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===================== */
+/* RESPONSIVO */
+/* ===================== */
+@media (max-width: 1000px) {
+  .contenedor {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #calendar,
+  .calculo {
+    width: 90%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 15px;
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+
+  #calendar,
+  .calculo {
+    width: 100%;
+  }
+}

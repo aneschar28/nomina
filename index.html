@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chava-nomina</title>
+
+    <!-- CSS de FullCalendar -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css"
+      rel="stylesheet"
+    >
+
+    <!-- CSS propio -->
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="contenedor">
+      <div>
+        <div id="calendar"></div>
+      </div>
+
+      <div class="calculo">
+
+        <div class="uscalend">
+          <input type="checkbox" class="usarcalendariotru"/>
+          <h4 class="usarcalendario">  No usar calendario </h4>
+        </div>
+
+         <div class="contenedordehoras">
+          <label for="cantidad">Horas:</label>
+          <input
+            placeholder="Ingresa valor"
+            class="Horas"
+          />
+         </div>
+
+        <div>
+          <h4 class="diurnaOrdinaria">Horas Diurnas: 0</h4>
+          <h4 class="nocturnaOrdinaria">Horas Nocturnas: 0</h4>
+          <h4 class="diurnaFestiva">Horas Diurna-Festiva: 0</h4>
+          <h4 class="nocturnaFestiva">Horas Nocturna-Festiva:0</h4>
+          <h4 class="totalHours">Horas Totales: 0</h4>
+
+          <label for="cantidad">salario por hora:</label>
+          <input
+            placeholder="Ingresa valor"
+            class="salarioHora"
+          />
+
+          <h4 class="salariobase">salario base: 0 </h4>
+          <h4 class="bonusExtraLegal">bono extralegal: 0 </h4>
+          <h4 class="dolar">dolar: 0 </h4>
+
+          <div>
+
+            <label for="cantidad">bono (USD):</label>
+            <input
+            placeholder="Ingresa valor"
+            class="bonus"
+            />
+
+          </div>
+
+          <div>
+
+            <label for="cantidad">comisiones (USD):</label>
+            <input
+            placeholder="Ingresa valor"
+            class="comisiones"
+          />
+
+          </div>
+
+          <div class="aderencia">
+            <input type="checkbox" class="adereatru"/>
+            <h4 class="adere">bono de aderencia: 0 </h4>
+          </div>
+
+          <div class="transp">
+            <input type="checkbox" class="auxtratru"/>
+            <h4 class="auxtra">Auxilio De Transporte: 0 </h4>
+          </div>
+
+          <h4 class="salypen">Aporte A Salud Y Pension: 0 </h4>
+          <h4 class="total">Total: 0 </h4>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal (ventana emergente) -->
+    <div id="modal">
+      <div class="modal-content">
+        <h3>Selecciona tu turno</h3>
+        <p id="fechaSeleccionada"></p>
+
+        <label for="horaInicio">Hora de inicio:</label>
+        <input type="time" id="horaInicio"><br><br>
+
+        <label for="horaFin">Hora de fin:</label>
+        <input type="time" id="horaFin"><br><br>
+
+        <div id="lunchOptions">
+          <label>
+            <input type="checkbox" id="incluirLunch">
+            Agregar lunch
+          </label>
+
+          <label for="horaLunchInicio">Hora de inicio del lunch:</label>
+          <input type="time" id="horaLunchInicio" disabled>
+
+          <label for="horaLunchFin">Hora de fin del lunch:</label>
+          <input type="time" id="horaLunchFin" disabled>
+        </div>
+
+        <div class="modal-buttons">
+          <button id="guardarTurno" class="btn guardar">Guardar</button>
+          <button id="cerrarModal" class="btn cancelar">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script de FullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
+    <!-- JS propio -->
+    <script src="calculadoranomina.js"></script>
+    <script src="calendario.js"></script>
+    <script src="calculos.js"></script>
+  </body>
+</html>
