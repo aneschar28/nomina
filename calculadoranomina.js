@@ -41,7 +41,7 @@ function desglosarHoras(inicio, fin) {
     const hora = actual.getHours();
     const fechaKey = actual.toLocaleDateString("sv-SE");
     const esFestivo = festivos.has(fechaKey) || actual.getDay() === 0;
-    const esNocturno = hora >= 19 || hora < 6;
+    const esNocturno = hora >= 21 || hora < 6;
 
     if (esFestivo && esNocturno) minutosNocturnaFestiva++;
     else if (esFestivo && !esNocturno) minutosDiurnaFestiva++;
@@ -105,24 +105,7 @@ function calcularHorasQuincena(jornadas) {
 
 
 
-// =============================
-// EJEMPLO DE USO
-// =============================
-// const jornadas = [
-//   { inicio: "2025-10-18T11:30:00", fin: "2025-10-18T19:30:00" }, // Sábado
-//   { inicio: "2025-10-19T11:30:00", fin: "2025-10-19T19:30:00" }, // Domingo
-//   { inicio: "2025-10-20T07:00:00", fin: "2025-10-20T16:30:00" }, // Lunes
-//   { inicio: "2025-10-21T07:00:00", fin: "2025-10-21T16:30:00" }, // Martes
-//   { inicio: "2025-10-22T07:00:00", fin: "2025-10-22T16:30:00" }, // Miércoles
-//   { inicio: "2025-10-25T11:30:00", fin: "2025-10-25T19:30:00" }, // Sábado
-//   { inicio: "2025-10-26T11:30:00", fin: "2025-10-26T19:30:00" }, // Domingo
-//   { inicio: "2025-10-27T07:00:00", fin: "2025-10-27T16:30:00" }, // Lunes
-//   { inicio: "2025-10-28T07:00:00", fin: "2025-10-28T16:30:00" }, // Martes
-//   { inicio: "2025-10-29T07:00:00", fin: "2025-10-29T16:30:00" }  // Miércoles
-// ];
 
-// console.log("Resumen quincena:", calcularHorasQuincena(jornadas));
-// console.log("Salario base:", salarioBase());
 
 
 
