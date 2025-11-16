@@ -51,7 +51,7 @@ function calendario () {
 function calculadoraSalario(aplicaTransporte = false, aplicaAderencia = false) {
     let subtotal1 = calendario () ? Number(Horas.value) :desglose.diurnaOrdinaria * 1
                   + desglose.nocturnaOrdinaria * 1.35
-                  + desglose.diurnaFestiva * 1.75
+                  + desglose.diurnaFestiva * 1.80
                   + desglose.nocturnaFestiva * 2.1;
 
     let subtotal2 = subtotal1 * Number(salarioHora.value); // salario neto de horas trabajadas
@@ -238,6 +238,7 @@ adereatru.addEventListener("change", () => {
     }  
       
 });
+
 
 
 
