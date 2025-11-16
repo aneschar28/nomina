@@ -57,7 +57,7 @@ function calculadoraSalario(aplicaTransporte = false, aplicaAderencia = false) {
     let subtotal2 = subtotal1 * Number(salarioHora.value); // salario neto de horas trabajadas
     let suptotal3 = calendario () ? Number(Horas.value)*1500 :desglose.totalHours * 1500; // bono extralegal por hora trabajada
     let suptotal4 = aplicaAderencia ? 120000 : 0; // bono adrerencia (solo si aplica)
-    let suptotal5 = aplicaTransporte ? 162000 : 0; // subsidio de transporte (solo si aplica)
+    let suptotal5 = aplicaTransporte ? 200000 : 0; // subsidio de transporte (solo si aplica)
     let suptotal6 = dolarhoy; // dólar actualizado
     let suptotal7 = Number(bonus.value); // bono en dólares
     let suptotal8 = Number(comisiones.value); // comisiones en dólares
@@ -238,6 +238,7 @@ adereatru.addEventListener("change", () => {
     }  
       
 });
+
 
 
 
