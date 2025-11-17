@@ -109,7 +109,7 @@ function formatearNumero(num, decimales = 2) {
   if (isNaN(num)) return "Número inválido";
   const partes = num.toFixed(decimales).split("."); // separa parte entera y decimal
   partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, "."); // agrega apóstrofes
-  return partes.join("."); // vuelve a unir con punto decimal
+  return partes.join(","); // vuelve a unir con punto decimal
 }
 
 
@@ -238,6 +238,7 @@ adereatru.addEventListener("change", () => {
     }  
       
 });
+
 
 
 
