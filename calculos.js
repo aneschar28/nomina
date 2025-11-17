@@ -33,8 +33,8 @@ async function obtenerPrecioDolarCOP() {
       throw new Error("No se encontró la tasa COP en la respuesta.");
     }
 
-    dolar.textContent =`1 USD = ${datos.rates.COP.toFixed(2)} COP`;
-    dolarhoy = Number(datos.rates.COP.toFixed(2));
+    dolar.textContent =`1 USD = ${formatearNumero(datos.rates.COP)} COP`;
+    dolarhoy = Number(formatearNumero(datos.rates.COP));
   } catch (error) {
     console.error("❌ Error al obtener el precio del dólar:", error.message);
   }
@@ -68,8 +68,8 @@ function calculadoraSalario(aplicaTransporte = false, aplicaAderencia = false) {
     salariobase.textContent = `Salario base: ${formatearNumero(subtotal2)}`;
     bonusExtraLegal.textContent = `Bono extralegal: ${formatearNumero(suptotal3)}`;
     salypen.textContent = `Aporte a salud y pensión: ${formatearNumero(suptotal11)}`;
-    adere.textContent = `bono de aderencia: ${suptotal4}`;
-    auxtra.textContent = `Auxilio de transporte: ${suptotal5}`;
+    adere.textContent = `bono de aderencia: ${formatearNumero(suptotal4)}`;
+    auxtra.textContent = `Auxilio de transporte: ${formatearNumero(suptotal5)}`;
     total.textContent = `Total: ${formatearNumero((subtotal2 + suptotal3 + suptotal4 +suptotal5 + suptotal9 + suptotal10 - suptotal11))}`;
 
 
@@ -107,9 +107,30 @@ function update (){
 
 function formatearNumero(num, decimales = 2) {
   if (isNaN(num)) return "Número inválido";
-  const partes = num.toFixed(decimales).split("."); // separa parte entera y decimal
-  partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, "."); // agrega apóstrofes
-  return partes.join(","); // vuelve a unir con punto decimal
+
+  // Convertimos el número con decimales
+  let [entera, decimal] = num.toFixed(decimales).split(".");
+
+  // Convertimos la parte entera a array de caracteres
+  let array = entera.split("");
+
+  // Recorremos desde el final hacia el inicio
+  for (let i = array.length - 1; i > 0; i--) {
+    let pos = array.length - i; // posición desde la derecha
+
+    // Reglas de tu segundo código
+    if (pos % 3 === 0 && pos % 2 === 0) {
+      array[i] = "'" + array[i];
+    } else if (pos % 3 === 0) {
+      array[i] = "." + array[i];
+    }
+  }
+
+  // Unimos parte entera formateada
+  let enteraFormateada = array.join("");
+
+  // Devolvemos número final
+  return enteraFormateada + "," + decimal;
 }
 
 
@@ -238,6 +259,7 @@ adereatru.addEventListener("change", () => {
     }  
       
 });
+
 
 
 
