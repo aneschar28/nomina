@@ -108,29 +108,22 @@ function update (){
 function formatearNumero(num, decimales = 2) {
   if (isNaN(num)) return "Número inválido";
 
-  // Convertimos el número con decimales
   let [entera, decimal] = num.toFixed(decimales).split(".");
+  let resultado = "";
+  let contador = 0;
 
-  // Convertimos la parte entera a array de caracteres
-  let array = entera.split("");
+  for (let i = entera.length - 1; i >= 0; i--) {
+    resultado = entera[i] + resultado;
+    contador++;
 
-  // Recorremos desde el final hacia el inicio
-  for (let i = array.length - 1; i > 0; i--) {
-    let pos = array.length - i; // posición desde la derecha
-
-    // Reglas de tu segundo código
-    if (pos % 3 === 0 && pos % 2 === 0) {
-      array[i] = "'" + array[i];
-    } else if (pos % 3 === 0) {
-      array[i] = "." + array[i];
+    if (contador % 6 === 0 && i !== 0) {
+      resultado = "'" + resultado;
+    } else if (contador % 3 === 0 && i !== 0) {
+      resultado = "." + resultado;
     }
   }
 
-  // Unimos parte entera formateada
-  let enteraFormateada = array.join("");
-
-  // Devolvemos número final
-  return enteraFormateada + "," + decimal;
+  return resultado + "," + decimal;
 }
 
 
@@ -259,6 +252,7 @@ adereatru.addEventListener("change", () => {
     }  
       
 });
+
 
 
 
