@@ -99,7 +99,6 @@ h2 {
 /* Checkbox */
 .calculo .aderencia,
 .calculo .transp,
-.calculo .uscal,
 .calculo .uscalend {
   display: flex;
   align-items: center;
@@ -109,7 +108,6 @@ h2 {
 
 .calculo .aderencia input,
 .calculo .transp input,
-.calculo .uscal input,
 .calculo .uscalend input {
   transform: scale(1.2);
   cursor: pointer;
