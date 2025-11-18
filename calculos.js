@@ -20,9 +20,34 @@ const auxtratru = document.querySelector(".auxtratru");
 const salypen = document.querySelector(".salypen");
 const total = document.querySelector(".total");
 let dolarhoy;
+let recNoc=1.35; // recargo nocturno
+let recFes=1.80; // recargo dominical
+let recNocFes=2.15; // recargo dominical y festivo
 
+// esta funcion solo pone los numeros de manera mas facil de entender expecialmente cuando son millones con decimales
 
+function formatearNumero(num, decimales = 2) {
+  if (isNaN(num)) return "Número inválido";
 
+  let [entera, decimal] = num.toFixed(decimales).split(".");
+  let resultado = "";
+  let contador = 0;
+
+  for (let i = entera.length - 1; i >= 0; i--) {
+    resultado = entera[i] + resultado;
+    contador++;
+
+    if (contador % 6 === 0 && i !== 0) {
+      resultado = "'" + resultado;
+    } else if (contador % 3 === 0 && i !== 0) {
+      resultado = "." + resultado;
+    }
+  }
+
+  return resultado + "," + decimal;
+}
+
+// esta funcion calcula el precio actual del dolar
 
 async function obtenerPrecioDolarCOP() {
   try {
@@ -34,13 +59,15 @@ async function obtenerPrecioDolarCOP() {
     }
 
     dolar.textContent =`1 USD = ${formatearNumero(datos.rates.COP)} COP`;
-    dolarhoy = Number(formatearNumero(datos.rates.COP));
+    dolarhoy = Number(datos.rates.COP.toFixed(2));
   } catch (error) {
     console.error("❌ Error al obtener el precio del dólar:", error.message);
   }
 }
 
 obtenerPrecioDolarCOP();
+
+// esta funcion es para calcular saber si el ususario tiene sus propias horas o prefiere usar las del calendario
 
 function calendario () {
 
@@ -50,11 +77,11 @@ function calendario () {
 
 function calculadoraSalario(aplicaTransporte = false, aplicaAderencia = false) {
     let subtotal1 = calendario () ? Number(Horas.value) :desglose.diurnaOrdinaria * 1
-                  + desglose.nocturnaOrdinaria * 1.35
-                  + desglose.diurnaFestiva * 1.80
-                  + desglose.nocturnaFestiva * 2.15;
+                  + desglose.nocturnaOrdinaria * recNoc
+                  + desglose.diurnaFestiva * recFes
+                  + desglose.nocturnaFestiva * recNocFes;
 
-    let subtotal2 = subtotal1 * Number(salarioHora.value); // salario neto de horas trabajadas
+    let suptotal2 = subtotal1 * Number(salarioHora.value); // salario neto de horas trabajadas
     let suptotal3 = calendario () ? Number(Horas.value)*1500 :desglose.totalHours * 1500; // bono extralegal por hora trabajada
     let suptotal4 = aplicaAderencia ? 120000 : 0; // bono adrerencia (solo si aplica)
     let suptotal5 = aplicaTransporte ? 200000 : 0; // subsidio de transporte (solo si aplica)
@@ -63,17 +90,14 @@ function calculadoraSalario(aplicaTransporte = false, aplicaAderencia = false) {
     let suptotal8 = Number(comisiones.value); // comisiones en dólares
     let suptotal9 = suptotal6 * suptotal7; // bono en pesos
     let suptotal10 = suptotal6 * suptotal8; // comisiones en pesos
-    let suptotal11 = (subtotal2 + suptotal3 + suptotal4 +suptotal5 + suptotal9 + suptotal10) * 0.06; // aporte salud/pensión
+    let suptotal11 = (suptotal2 + suptotal3 + suptotal4 +suptotal5 + suptotal9 + suptotal10) * 0.06; // aporte salud/pensión
 
-    salariobase.textContent = `Salario base: ${formatearNumero(subtotal2)}`;
+    salariobase.textContent = `Salario base: ${formatearNumero(suptotal2)}`;
     bonusExtraLegal.textContent = `Bono extralegal: ${formatearNumero(suptotal3)}`;
     salypen.textContent = `Aporte a salud y pensión: ${formatearNumero(suptotal11)}`;
     adere.textContent = `bono de aderencia: ${formatearNumero(suptotal4)}`;
     auxtra.textContent = `Auxilio de transporte: ${formatearNumero(suptotal5)}`;
-    total.textContent = `Total: ${formatearNumero((subtotal2 + suptotal3 + suptotal4 +suptotal5 + suptotal9 + suptotal10 - suptotal11))}`;
-
-
-
+    total.textContent = `Total: ${formatearNumero((suptotal2 + suptotal3 + suptotal4 +suptotal5 + suptotal9 + suptotal10 - suptotal11))}`;
 
 }
 
@@ -105,160 +129,7 @@ function update (){
 
 }
 
-function formatearNumero(num, decimales = 2) {
-  if (isNaN(num)) return "Número inválido";
-
-  let [entera, decimal] = num.toFixed(decimales).split(".");
-  let resultado = "";
-  let contador = 0;
-
-  for (let i = entera.length - 1; i >= 0; i--) {
-    resultado = entera[i] + resultado;
-    contador++;
-
-    if (contador % 6 === 0 && i !== 0) {
-      resultado = "'" + resultado;
-    } else if (contador % 3 === 0 && i !== 0) {
-      resultado = "." + resultado;
-    }
-  }
-
-  return resultado + "," + decimal;
-}
-
-
-usarcalendariotru.addEventListener("input", () => {
-
-    
-
-    if (!auxtratru.checked) {
-        if (!adereatru.checked) {
-         calculadoraSalario(false,false);
-        }else {
-         calculadoraSalario (false,true)
-        } 
-
-    } else {
-        if (!adereatru.checked) {
-         calculadoraSalario(true,false);
-        }else {
-         calculadoraSalario (true,true)
-        }
-    }  
-});
-
-Horas.addEventListener("input", () => {
-    if (!auxtratru.checked) {
-        if (!adereatru.checked) {
-         calculadoraSalario(false,false);
-        }else {
-         calculadoraSalario (false,true)
-        } 
-
-    } else {
-        if (!adereatru.checked) {
-         calculadoraSalario(true,false);
-        }else {
-         calculadoraSalario (true,true)
-        }
-    }  
-});
-
-salarioHora.addEventListener("input", () => {
-    if (!auxtratru.checked) {
-        if (!adereatru.checked) {
-         calculadoraSalario(false,false);
-        }else {
-         calculadoraSalario (false,true)
-        } 
-
-    } else {
-        if (!adereatru.checked) {
-         calculadoraSalario(true,false);
-        }else {
-         calculadoraSalario (true,true)
-        }
-    }   
-});
-
-bonus.addEventListener("input", () => {
-    if (!auxtratru.checked) {
-        if (!adereatru.checked) {
-         calculadoraSalario(false,false);
-        }else {
-         calculadoraSalario (false,true)
-        } 
-
-    } else {
-        if (!adereatru.checked) {
-         calculadoraSalario(true,false);
-        }else {
-         calculadoraSalario (true,true)
-        }
-    }  
-});
-
-comisiones.addEventListener("input", () => {
-    if (!auxtratru.checked) {
-        if (!adereatru.checked) {
-         calculadoraSalario(false,false);
-        }else {
-         calculadoraSalario (false,true)
-        } 
-
-    } else {
-        if (!adereatru.checked) {
-         calculadoraSalario(true,false);
-        }else {
-         calculadoraSalario (true,true)
-        }
-    }  
-});
-
-auxtratru.addEventListener("change", () => {
-
-    if (!auxtratru.checked) {
-        if (!adereatru.checked) {
-         calculadoraSalario(false,false);
-        }else {
-         calculadoraSalario (false,true)
-        } 
-
-    } else {
-        if (!adereatru.checked) {
-         calculadoraSalario(true,false);
-        }else {
-         calculadoraSalario (true,true)
-        }
-    }   
-      
-});
-
-adereatru.addEventListener("change", () => {
-
-    if (!auxtratru.checked) {
-        if (!adereatru.checked) {
-         calculadoraSalario(false,false);
-        }else {
-         calculadoraSalario (false,true)
-        } 
-
-    } else {
-        if (!adereatru.checked) {
-         calculadoraSalario(true,false);
-        }else {
-         calculadoraSalario (true,true)
-        }
-    }  
-      
-});
-
-
-
-
-
-
-
-
-
-
+[usarcalendariotru, Horas, salarioHora, bonus, comisiones, auxtratru, adereatru]
+  .forEach(el => {
+      el.addEventListener("input", update);
+  });
