@@ -90,7 +90,7 @@ function calculadoraSalario(aplicaTransporte = false, aplicaAderencia = false) {
     let suptotal8 = Number(comisiones.value); // comisiones en dólares
     let suptotal9 = suptotal6 * suptotal7; // bono en pesos
     let suptotal10 = suptotal6 * suptotal8; // comisiones en pesos
-    let suptotal11 = (suptotal2 + suptotal4 +suptotal5 + suptotal9 + suptotal10) * 0.08; // aporte salud/pensión
+    let suptotal11 = (suptotal2 + suptotal4 + suptotal9 + suptotal10) * 0.08; // aporte salud/pensión
 
     salariobase.textContent = `Salario base: ${formatearNumero(suptotal2)}`;
     bonusExtraLegal.textContent = `Bono extralegal: ${formatearNumero(suptotal3)}`;
@@ -133,5 +133,6 @@ function update (){
   .forEach(el => {
       el.addEventListener("input", update);
   });
+
 
 
