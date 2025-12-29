@@ -83,7 +83,7 @@ function desglosarHoras(inicio, fin) {
     const hora = actual.getHours();
     const fechaKey = actual.toLocaleDateString("sv-SE");
     const esFestivo = festivos.has(fechaKey) || actual.getDay() === 0;
-    const esNocturno = hora >= 21 || hora < 6; // legislacion de colombia hasta el 26 de dic 25, jornada nocturna desde las 9p.m. hasta las 6 a.m.
+    const esNocturno = hora >= 19 || hora < 6; // legislacion de colombia hasta el 26 de dic 25, jornada nocturna desde las 9p.m. hasta las 6 a.m.
 
     if (esFestivo && esNocturno) minutosNocturnaFestiva++;
     else if (esFestivo && !esNocturno) minutosDiurnaFestiva++;
@@ -144,3 +144,4 @@ function calcularHorasQuincena(jornadas) {
 
   return tot;
 }
+
