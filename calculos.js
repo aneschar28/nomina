@@ -67,7 +67,7 @@ async function obtenerPrecioDolarCOP() {
 
 obtenerPrecioDolarCOP();
 
-// esta funcion es para calcular saber si el ususario tiene sus propias horas o prefiere usar las del calendario
+// esta funcion es para calcular si el ususario tiene sus propias horas o prefiere usar las del calendario
 
 function calendario () {
 
@@ -82,7 +82,7 @@ function calculadoraSalario(aplicaTransporte = false, aplicaAderencia = false) {
                   + desglose.nocturnaFestiva * recNocFes;
 
     let suptotal2 = subtotal1 * Number(salarioHora.value); // salario neto de horas trabajadas
-    let suptotal3 = calendario () ? Number(Horas.value)*1500 :desglose.totalHours * 1500; // bono extralegal por hora trabajada
+    
     let suptotal4 = aplicaAderencia ? 120000 : 0; // bono adrerencia (solo si aplica)
     let suptotal5 = aplicaTransporte ? 249095 : 0; // subsidio de transporte (solo si aplica)
     let suptotal6 = dolarhoy; // dólar actualizado
@@ -93,11 +93,11 @@ function calculadoraSalario(aplicaTransporte = false, aplicaAderencia = false) {
     let suptotal11 = (suptotal2 + suptotal4 + suptotal9 + suptotal10) * 0.08; // aporte salud/pensión
 
     salariobase.textContent = `Salario base: ${formatearNumero(suptotal2)}`;
-    bonusExtraLegal.textContent = `Bono extralegal: ${formatearNumero(suptotal3)}`;
+   
     salypen.textContent = `Aporte a salud y pensión: ${formatearNumero(suptotal11)}`;
     adere.textContent = `bono de aderencia: ${formatearNumero(suptotal4)}`;
     auxtra.textContent = `Auxilio de transporte: ${formatearNumero(suptotal5)}`;
-    total.textContent = `Total: ${formatearNumero((suptotal2 + suptotal3 + suptotal4 +suptotal5 + suptotal9 + suptotal10 - suptotal11))}`;
+    total.textContent = `Total: ${formatearNumero((suptotal2 + suptotal4 +suptotal5 + suptotal9 + suptotal10 - suptotal11))}`;
 
 }
 
@@ -133,6 +133,7 @@ function update (){
   .forEach(el => {
       el.addEventListener("input", update);
   });
+
 
 
 
